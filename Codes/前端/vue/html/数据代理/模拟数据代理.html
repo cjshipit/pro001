@@ -1,0 +1,28 @@
+<html>
+<head>
+</head>
+<body>
+  <script>
+    data:{
+        name:'lxp'
+        age:'18'
+    }
+    person:{
+
+    }
+    Object.defineProperty(person,'name',{
+         set(value){
+            data.name = value
+         },
+         get(){
+            return data.name
+         }
+    })
+
+
+
+  </script>
+
+</body>
+
+</html>

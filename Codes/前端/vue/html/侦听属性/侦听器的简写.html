@@ -1,0 +1,71 @@
+<html>
+    <head>
+         <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+       <div id="root">
+        <span>今天天气{{info}}</span>
+        <button @click="changeWeather">改变天气</button>
+       </div>
+    </body>
+    <script>
+        const vm = new Vue({
+            el:"#root",
+            data:{
+                isNice : true,
+                info:"凉爽"
+            },
+            methods:{
+                changeWeather(){
+                    this.isNice = ! this.isNice
+                }
+            },
+            watch:{
+                //对isNice属性进行监听 写法为 监听到的属性和配置
+                // isNice:{
+                //     immediate:true, //在加载页面的时候也触发监听
+                //     //监听到属性后 执行的方法
+                //     handler(newValue,oldValue){
+                //         if(newValue ==true){
+                //             this.info = '凉爽'
+                //         }else{
+                //             this.info = '炎热'
+                //         }
+
+                //     }
+
+                // }
+                //只有一个属性handler时候可以简写
+                //isNice:function(){}
+                isNice(newValue,oldValue){
+                    if(newValue ==true){
+                            this.info = '凉爽'
+                        }else{
+                            this.info = '炎热'
+                        }
+                }
+            }
+        })
+        //监听器的第二种写方法 同上 监听info属性 变化时候执行handler
+        // vm.$watch('info',{
+        //     handler(newValue,oldValue){
+        //        console.log('info 信息改变')
+        //     }
+        // })
+
+        //配置可以简写 后面函数不能写为箭头函数
+         vm.$watch('info',function(){
+            console.log('info 信息改变')
+         }
+        )
+
+
+        //监听不存在的属性
+        vm.$watch('ccc',{
+            immediate:true,
+            handler(newValue,oldValue){
+               console.log(newValue,oldValue)
+            }
+        })
+    </script>
+</html>

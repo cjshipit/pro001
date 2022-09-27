@@ -1,0 +1,50 @@
+<!--
+   当数据已经被vue代理后 如何新添加属性
+   直接person.sex 肯定是不大行的 因为没有和vue关联起来
+   使用set方法可以解决问题，但是set方法不能王根元素上(data/_data)
+   上添加数据 只能王person(类) 下面添加
+
+
+-->
+
+<html>
+    <head>
+       <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+       <div id="root">
+        <ul>
+            <li v-for="(p,index) in person">
+                {{index}} --- {{p}}
+            </li>
+            添加一个sex属性
+            <button @click="addSex1">this.person.sex = '男'</button>
+           <!--以下两种都是在调用set方法-->
+            <button @click='addSex2'> Vue.set(person,'sex','男')</button>
+            <button @click='addSex3'>vm.$set(person,'sex','女')</button>
+        </ul>
+       </div>
+    </body>
+    <script>
+        vm = new Vue({
+            el:'#root',
+            data:{
+                person:{
+                    name:'张三',
+                    age:18
+                }
+            },
+            methods:{
+                addSex1(){
+                  this.person.sex = '男'
+                },
+                addSex2(){
+                    Vue.set(this.person,'sex','男')
+                },
+                addSex3(){
+                    vm.$set(this.person,'sex','女')
+                }
+            }
+        })
+    </script>
+</html>

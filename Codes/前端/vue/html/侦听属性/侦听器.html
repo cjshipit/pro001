@@ -1,0 +1,58 @@
+<!--通过监听器 监视isNice属性，然后改变info
+    页面加载时候 监听函数的 oldvalue为undefine
+    如果监听的属性不存在 不会报错 但是newValue和oldvalue为undefine
+-->
+<html>
+    <head>
+         <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+       <div id="root">
+        <span>今天天气{{info}}</span>
+        <button @click="changeWeather">改变天气</button>
+       </div>
+    </body>
+    <script>
+        const vm = new Vue({
+            el:"#root",
+            data:{
+                isNice : true,
+                info:"凉爽"
+            },
+            methods:{
+                changeWeather(){
+                    this.isNice = ! this.isNice
+                }
+            },
+            watch:{
+                //对isNice属性进行监听 写法为 监听到的属性和配置
+                isNice:{
+                    immediate:true, //在加载页面的时候也触发监听
+                    //监听到属性后 执行的方法
+                    handler(newValue,oldValue){
+                        if(newValue ==true){
+                            this.info = '凉爽'
+                        }else{
+                            this.info = '炎热'
+                        }
+
+                    }
+
+                }
+            }
+        })
+        //监听器的第二种写方法 同上 监听info属性 变化时候执行handler
+        vm.$watch('info',{
+            handler(newValue,oldValue){
+               console.log('info 信息改变')
+            }
+        })
+        //监听不存在的属性
+        vm.$watch('ccc',{
+            immediate:true,
+            handler(newValue,oldValue){
+               console.log(newValue,oldValue)
+            }
+        })
+    </script>
+</html>

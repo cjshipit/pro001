@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+<body>
+   <div>
+   </div>
+</body>
+  <script>
+    /*
+      通过以下代码，稍微理解一下如何监控数据
+      数据监控的核心就是在使用属性的时候，不直接用，而是调用get set方法,
+      做一些模板解析等事情再动属性2 
+    */
+
+    //第一种方式 不大行 会发生递归,虽然在使用获得属性的时候解析模板
+    //但是会递归调用get和set
+    data = {}
+    Object.defineProperty(data,'name',{
+        set(value){
+            console.log('数据发生了改变,正在重新解析模板');
+            this.name = value ; 
+        },
+        get(){
+            return this.name ;
+        }
+    })
+    
+  </script>
+
+
+</html>

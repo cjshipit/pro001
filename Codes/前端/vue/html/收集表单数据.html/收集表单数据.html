@@ -1,0 +1,79 @@
+<!--
+    v-model 监听value属性
+    当一个
+    绑定的是多选框一个hobbys有多个值用数组收集 如果用''
+    那么只能收集到true或false (是否被选中)
+    v-model.lazy 懒加载 当失去焦点的时候更新vm中数据
+    以下两个配合使用:
+    v-model.number 将输入框中的内容转化为数字类型 传给vm
+    type="number" html原生的东西,使用后不能输入字符
+-->
+
+<html>
+<head>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="root" @submit.prevent="submitForm">
+       <form>
+        <!--正常用v-model 来收集-->
+        用户名<input type="text" v-model="userInfo.username" /><br/><br/>
+        密码<input type="password" v-model="userInfo.password" /><br/><br/>
+        年龄<input type="number" v-model.number="userInfo.age" />
+        <!--收集单选框的数据 v-model收集value数据 没有value属性什么也收集不到-->
+        <!-- 男<input type="radio" name="sex" v-model="userInfo.sex" />  
+        女<input type="radio" name="sex" v-model="userInfo.sex" /><br/><br/>
+        -->
+        男<input type="radio" name="sex" v-model="userInfo.sex" value="man" />  
+        女<input type="radio" name="sex" v-model="userInfo.sex" value="woman"  /><br/><br/>
+        <br/>
+
+        <!--多选框 默认收集的value是true和false(是否被选中)
+            所以应该重写value标签
+
+        -->
+        爱好:
+        吃饭<input type="checkbox" v-model="userInfo.hobbys" value="eat" /><br/>
+        睡觉<input type="checkbox" v-model="userInfo.hobbys" value="sleep" /><br/>
+        打豆豆<input type="checkbox" v-model="userInfo.hobbys" value="fight" /><br/><br/><br/>
+        
+
+
+        <!--理解收集select数据-->
+        <select v-model="userInfo.selectInfo">
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+            <option value="PHP">PHP</option>
+            <option value="C++">C++</option>
+        </select><br/><br/>
+
+        <textarea v-model.lazy="userInfo.textarea"></textarea><br/>
+        <button type="submit">提交</button>
+       </form>
+      
+    </div>
+</body>
+    <script>
+        const vm = new Vue({
+            el:'#root',
+            data:{
+               userInfo:{
+                     username:'',
+                     password:'',
+                     selectInfo:'PHP',
+                     sex:'',
+                     //绑定的是多选框一个hobbys有多个值用数组收集 如果用''
+                     //那么只能收集到true或false (是否被选中)
+                     hobbys:[],
+                     textarea:'',
+                    age:20}
+            },
+            methods:{
+                submitForm(){
+                    console.log(JSON.stringify(vm.userInfo))
+                }
+            }
+        })
+    </script>
+
+</html>

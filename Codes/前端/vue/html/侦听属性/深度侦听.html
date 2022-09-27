@@ -1,0 +1,55 @@
+<!--
+    监听子属性的时候必须用'' 引起来 (其实应该是写引号的 但其他情况可以省略)
+    监听number的时候 默认不会监听子属性a和b 只有number = 后才会被监听
+    当deep=ture配置时候 会监听子鼠星
+
+-->
+<html>
+    <head>
+        <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+         <div id="root">
+            <span>{{number.a}}</span>
+            <button @click="addA">a加加</button>
+         </div>
+    </body>
+    <script>
+        const vm = new Vue({
+            el:"#root",
+            data:{
+                number:{
+                    a:1,
+                    b:2
+                }
+            },
+            methods:{
+                addA(){
+                   this.number.a++
+                }
+            },
+            watch:{
+                'number.a':{
+                    handler(){
+                        console.log("a加了一下子")
+                    }
+                },
+                //a变化的时候 不会被监听到
+                // number:{
+                //     handler(){
+                //         console.log('number改变了')
+                //     }
+                // }
+                //a改变number会侦听到
+                number:{
+                    deep : true,
+                    handler(){
+                        console.log("number改变了")
+                    }
+                }
+                
+            }
+
+        })
+    </script>
+</html>

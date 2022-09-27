@@ -1,0 +1,46 @@
+<!--
+    利用计算属性来实现一个列表的过滤
+-->
+<html>
+    <head>
+        <script src="../../js/vue.js">
+
+        </script>
+    </head>
+    <body>
+        <div id="root">
+            <input v-model:value="filter">
+            <li>
+                <ul v-for="(person,index) in filterPersons" :key="person.id">
+                    {{person.id}}--{{person.name}}--{{person.age}}
+                </ul>
+            </li>
+        </div>
+    </body>
+
+    <script>
+        const vm = new Vue({
+            el:'#root',
+            data:{
+                filter:'',
+                persons:[{id:'001',name:'周冬雨',age:18},
+                         {id:'002',name:'马冬梅',age:30},
+                         {id:'003',name:'周杰伦',age:22},
+                         {id:'003',name:'温兆伦',age:22},
+                        ],
+            },
+            computed:{
+                filterPersons(){
+                    return this.persons.filter((person)=>{
+                        //理解这个this指向的是vm对象不是windows
+                        if(person.name.indexOf(this.filter) !== -1){
+                            return true
+                        }else {return false}
+                    })
+                }
+            }
+            
+   
+        })
+    </script>
+</html>

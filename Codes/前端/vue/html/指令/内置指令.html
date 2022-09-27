@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script src="../../js/vue.js"></script>
+        <style>
+         [v-clock]{
+            display: none;
+              
+         }
+        </style>
+    </head>
+        
+    <body>
+      <div id="root">
+          <!-- v-text 照原样显示 不做html和模板解析 -->
+          <span v-text="text"></span>
+          <!--进行html解析 不做模板解析  该标签危险-->
+          <span v-html="html"></span>
+          <span v-html="html2"></span>
+          <!--v-once 记录最原始的n-->
+          <span v-once>{{n}}</span><br/>
+          <span>{{n}}</span><br/>
+          <button @click="n++">点击n++</button><br/>
+          <!--告诉vue 不做模板解析 加速vue的执行-->
+          <span v-pre>{{n}}</span>
+          <!--在vue解析到这一行的时候 会删除v-clock属性,可以配合
+            css 使得该标签只有在vue解析之后才显示到屏幕上，避免显示
+            没有解析完的数据
+           -->
+          <span v-clock>{{n}}</span>
+      </div>
+
+    </body>
+    <script>
+        const vm = new Vue({
+            el:'#root',
+            data:{
+              text:'<h1>{{html}}</h1>',
+              html:"<h1>哈哈哈</h1>",
+              html2:"{{text}}",
+              n:1,
+            },
+        })
+    </script>
+</html>

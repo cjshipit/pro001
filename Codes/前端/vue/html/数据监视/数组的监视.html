@@ -1,0 +1,67 @@
+<!--
+    vue要想监控到数据改变必须设置get set方法
+     或者重写对象/数组的某个方法
+
+     _data中有persons 和hobbys的get和set方法 所以 persons = 
+     hobbys= 可以被监控的到
+     persons 中的每一个对象的属性name age 也有get set 也可以被监控到
+     数组中位置没有get和set persons[0] ={} 不会被监控
+
+
+     数组中的 sort reverse unshift shift push pop splice 七个方法
+     被vue重写了,可以监控到
+
+-->
+<html>
+<head>
+ <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <ul>
+            <li v-for="(p,index) in persons" :key="index">
+                {{p.name}}----{{p.age}}
+            </li>
+        </ul>
+        <button @click="chageArr3">this.persons.name='王五'</button>
+    </br>
+    </br>
+        <ul>
+            <li v-for="(h,index) in hobbys" :key="index">
+                {{h}}
+            </li>
+            <!--能监控到-->
+            
+        </ul>
+        <!--监视不到-->
+        <button @click="chageArr1">hobbys[0] = '开车'</button>
+        <!--可以监控到-->
+        <button @click="chageArr2">this.hobbys.splice(0,1,'开车')</button>
+    </div>
+</body>
+    <script>
+       vm = new Vue({
+        el:'#root',
+        data:{
+            persons:[
+                {name:'张三',age:18},
+                {name:'李四',age:19}
+            ],
+            hobbys:['抽烟','喝酒','烫头']
+        },
+        methods:{
+            chageArr1(){
+                this.hobbys[0] = '开车'
+            },
+            chageArr2(){
+                this.hobbys.splice(0,1,'开车')
+            },
+            chageArr3(){
+                this.persons[0].name = '王五';
+            }
+        }   
+    })
+
+
+    </script>
+</html>

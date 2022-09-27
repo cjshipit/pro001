@@ -1,0 +1,44 @@
+<html>
+<head>
+</head>
+<body>
+   <div>
+   </div>
+</body>
+  <script>
+    /*
+      通过以下代码，稍微理解一下如何监控数据
+      数据监控的核心就是在使用属性的时候，不直接用，而是调用get set方法,
+      做一些模板解析等事情再动属性2 
+    */
+
+    //第二种方式 不会发生递归,虽然在使用获得属性的时候解析模板
+    //理解这种写法 理解vue中的_data和自己写的data之间的关系
+    //但是会递归调用get和set
+    data = {
+        name:'123',
+        age:18
+    };
+    class observer{
+        constructor(data){
+            //拿到data中的所有的属性
+            var keys = Object.keys(data);
+            for(var key in keys){
+                Object.defineProperty(this,keys[key],{
+                    get(){
+                         console.log('获得属性')
+                         return data[keys[key]]
+                    },
+                    set(val){
+                        console.log('解析模板')
+                        data[keys[key]] = val
+                    }
+                })
+            }
+        }
+    }
+    _data = new observer(data)
+
+    </script>
+
+</html>

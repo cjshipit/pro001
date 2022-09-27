@@ -1,0 +1,32 @@
+<html>
+<head>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        v-for 会遍历一个可遍历的集合(数组,类,字符串..) 
+        每遍历出一个节点 会生成一个ul(下面的例子)
+        遍历弹出的person index 和python 的写法一致 只是python index在前面
+        in 有时候可以写为of
+        key 很关键 看笔记
+    -->
+    <div id="root">
+        <li>
+            <ul v-for="(person,index) in persons" :key="person.id">
+                {{person.id}}--{{person.name}}--{{person.age}}
+            </ul>
+        </li>
+    </div>
+</body>
+<script>
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            persons:[{id:'001',name:'张三',age:18},
+                     {id:'002',name:'李四',age:30},
+                     {id:'003',name:'王五',age:22},
+                    ]
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,42 @@
+<!--
+    学会绑定事件
+    学会给事件函数传递参数
+-->
+
+<html>
+<head>
+<script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!---两种绑定事件的方法 第二种为简写-->
+        <button v-on:click="show1">点击触发事件1</button>
+        <button @click="show2">点击触发事件2</button>
+        <!--传入参数 需要@event传入event对象,(本来是自动传的，当然不需要就不传)-->
+        <button @click="show3($event,33)">点击触发事件3</button>
+    </div>
+
+    <script>
+     const vm = new Vue({
+        el:'#root',
+        data:{},
+        methods:{
+          show1(){
+            alert('第一个事件触发')
+          },
+          show2(){
+            console.log(event.target) //默认传入event参数 target能得到那个触发了事件
+            alert('第二个事件触发')
+          },
+          show3(event,b){
+            console.log(b)
+            console.log(event.target)
+          }
+        }
+     })
+
+    </script>
+</body>
+
+</html>

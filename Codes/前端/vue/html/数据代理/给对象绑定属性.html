@@ -1,0 +1,35 @@
+<html>
+<head>
+</head>
+<body>
+    <div id="root" ></div>
+    <script>
+        person = {
+            age:'18' ,
+            name:'lxp',
+        } 
+        //这个方法很重要 可以给一个对象绑定属性  第二个是属性名 第三个参数是配置
+        Object.defineProperty(person,'address',{
+            enumerable:true, //是否可以枚举 ,默认不可以
+            //writable:true,  //是否可以修改 默认为false
+            //value:'123'    //设置的值
+            configurable:true, //是否可以删除属性，默认为false    
+            /*下面这个是给person绑定一个get方法 和java不同的事情是
+              在调用address的属性时候 可以会调用该方法 
+              person.address 会调用get方法 这是实现数据代理的关键
+              (python也可以) 
+            */
+            get(){
+                return '1111'
+            },
+            //函数的特殊写法 set = function(vaule){}
+            //同get一样,在给属性赋值的时候会调用(person.address=)
+            set(vaule){
+               console.log('调用了set')
+            }
+        })
+    </script>
+
+</body>
+
+</html>

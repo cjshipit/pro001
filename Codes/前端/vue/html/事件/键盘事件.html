@@ -1,0 +1,50 @@
+<!--
+    每一个键盘按键都有一个名字，和一个编码。
+    vue给一些常用的键起了别名:
+    enter 回车 delete 删除/回退 esc 退出 space 空格 tab 换行
+    up down left right 上下左右
+
+    tab 用于键盘按下事件(焦点) 
+    ctrl alt shift meta(win) 在绑定到up事件上时候。实在按下ctrl键
+    然后再按其他键，然后再放开其他键之后使用(组合键)
+-->
+
+<html>
+<head>
+<script src="../../js/vue.js"></script>
+
+</head>
+
+<body>
+<div id="root">
+    <input @keyup="show">
+    <input @keydown="show">
+
+    <!--只监听名字为enter的案件(enter为别名 当然可以用本名)-->
+    <input @keydown.enter="show2">只监听部分案件
+
+    <input @keyup.ctrl="show2">监听ctrl的弹出
+    <!--
+        在按下ctrl后按下a再放开才能触发事件
+    -->
+    <input @keyup.ctrl.a="show2">
+</div>
+<script>
+    const vm = new Vue({
+        el:'#root',
+        methods:{
+            show(e){
+                console.log(e.key) //打印键的名字
+                console.log(e.keyCode)//打印键的编码
+            },
+            show2(e){
+                console.log(e.key)
+                console.log('只监听回车按键')
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

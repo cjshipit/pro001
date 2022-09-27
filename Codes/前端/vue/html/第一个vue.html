@@ -1,0 +1,31 @@
+<!--
+   vue的一个巨大功能是可以把模板和数据分离 通过占位符和数据绑定的方式
+   进行监听数据和渲染数据 
+   插值语法中可以写vm对象(vue对象中所拥有的属性)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">{{name}}
+        <a v-bind:href="url">测试一下属性绑定</a>
+        <a :href="url">测试一下属性绑定</a>
+        <input type="text" v:model:value="text8">
+    </div>  
+    
+</body>
+
+</html>
+<script>
+    var vm =  new Vue({
+     el:'#root', //将这个vm(vue对象和id为root的dom绑定 el的值可以是css选择器)
+     data:{
+         name:"哈哈",
+         url:"http://www.baidu.com",
+         text:"哈哈",
+     }
+    });
+ </script>

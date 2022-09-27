@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <script src="../../js/vue.js"></script>
+        <style>
+         [v-clock]{
+            display: none;
+              
+         }
+        </style>
+    </head>
+        
+    <body>
+      <div id="root">
+         <span v-big="n"></span>
+         <button @click="n++">点击n++</button><br/>
+      </div>
+
+    </body>
+    <script>
+        const vm = new Vue({
+            el:'#root',
+            data:{
+                n:1,
+            },
+            directives:{
+                //在数据和dom绑定(刚加载) 以及 重新解析模板的时候执行
+                //v-big 使用这个
+                big(element,binding){
+                    console.log(element)
+                    console.log(binding)
+                    console.log(this) //windows
+                    element.innerText = binding.value * 10
+
+                },
+                //使用对象方式
+                big2:{
+                    //绑定执行
+                    bind(element,binding){},
+                    //重新解析模板时执行
+                    update(element,binding){},
+                    //dom加载页面时候执行
+                    inserted(element,binding){
+                        
+                    }
+                    
+                    
+                
+                }
+            }
+        })
+    </script>
+</html>

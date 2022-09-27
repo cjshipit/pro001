@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <script src="../../js/vue.js"></script>
+    </head>
+     
+    <body>
+        <div id="root">
+            <span>今天天气{{isNice?"凉爽":"炎热"}}</span> 
+            <button @click="changeWeather">改变天气</button>   
+         </div>
+    </body>
+    <script>
+        const vm = new Vue({
+            el:'#root',
+            data:{
+                isNice:true,
+            },
+            methods:{
+                changeWeather(){
+                    this.isNice = ! this.isNice
+                }
+            }
+
+        })
+    </script>
+</html>

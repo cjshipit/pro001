@@ -1,0 +1,68 @@
+<!--
+    事件的基本知识:
+    事件的捕获 当触发事件的时候，父-- >子元素会依次捕捉到事件
+    事件的冒泡 捕捉事件之后 会依次从子-- >父元素冒泡处理
+
+    事件的修饰符,主要有三个比较常用(其他的百度..)
+    prevent 清除默认事件
+    stop 阻止冒泡
+    once 只触发一次
+    修饰符可以组合使用 .stop.once
+-->
+<html>
+    <head>
+        <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+    <div id="root">
+        <!--当点击button的时候 c 和button会依次捕获 
+        button c 会冒泡处理
+       点击后 先打印1 再打印2
+        -->
+        <div id='c' @click="show(2)">
+            <button @click="show(1)">点击一下</button>
+        </div>
+       <!--
+        标签本来有一个点击后跳转网页的事件 新家一个事件之后，
+        可以通过修饰符号组织默认事件的触发
+        跳转连接1:弹窗加跳转
+        跳转连接2:只弹窗，不跳转
+       -->
+       <a href="www.baidu.com" @click = 'show2'>跳转连接1</a>
+       <a href="www.baidu.com" @click.prevent = 'show2'>跳转连接2</a>
+       
+       <!--
+        按钮2的stop、修饰符会阻止事件冒泡，然后组织div上事件的触发
+       -->
+       <div @click="show_div">
+        <button @click="show3">按钮1</button>
+        <button @click.stop="show3">按钮2</button>
+       </div>
+       <button @click.once="show4">事件只会触发依次</button>
+     </div>
+     <script>
+        const vm = new Vue({
+           el:'#root',
+           methods:{
+             show(b){
+                console.log(b)
+             },
+             show2(){
+                alert('跳转网页')
+             },
+             show3(){
+                alert('单击按钮')
+             },
+             show_div(){
+                alert('上层div被触发')
+             },
+             show4(){
+                alert('事件只会触发依次')
+             }
+           }
+           
+        })
+     </script>
+    
+    </body>
+</html>

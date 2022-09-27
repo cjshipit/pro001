@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <input v-model="firstname" type="text">姓
+            <input v-model="lastname"type="lastname">名
+            <span>{{fullname}}</span>
+            <span>{{fullname}}</span>
+        </div>
+    </body>
+    <script>
+        const vm = new Vue({
+            el:"#root",
+            data:{
+                firstname:'张',
+                lastname:'三',
+                fullname:'张-三'
+            },
+            //计算属性依赖与返回值
+            // computed:{
+            //     fullname(){
+            //         return this.firstname+'-'+this.lastname
+            //     }
+            // },
+            //不依赖于返回值
+            watch:{
+                firstname(newValue,oldvalue){
+                    this.fullname  = newValue+'-'+this.lastname
+
+                },
+                //等一秒钟后再修改 此时 用计算属性不行因为无法把setTimeout
+                //执行的回调函数的返回值弹出去
+                lastname(newValue,oldvalue){
+                    setTimeout(() => {
+                        console.log('等一段时间后回调')
+                        this.fullname  = this.firstname+'-'+newValue
+                    },1000)
+
+                }
+
+            }
+        })
+    </script>
+</html>

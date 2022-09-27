@@ -1,0 +1,48 @@
+<!--
+计算属性与绑定函数的写法的区别是 计算属性可与i缓存fullname的值
+在加载页面的时候,以及依赖的属性改变时候才会调用get方法
+
+计算属性写法的时候:表达式不用加() vue会自动将fullname绑定到vm(vue对象上)
+并且将get,set方法挂载上,(使用属性的时候自动调用get和set方法)
+
+注意 get set 以及简写的时候不要用箭头函数，不然this拿不到东西
+-->
+<html>
+    <head>
+        <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <input v-model="firstname" type="text">姓
+            <input v-model="lastname"type="lastname">名
+            <span>{{fullname}}</span>
+            <span>{{fullname}}</span>
+        </div>
+    </body>
+    <script>
+        const vm = new Vue({
+            el:"#root",
+            data:{
+                firstname:'张',
+                lastname:'三',
+            },
+            computed:{
+                // fullname:{
+                //     get(){
+                //         return this.firstname+'-'+this.lastname
+                //     },
+                //     set(vaule){
+                //         this.firstname = value.split('-')[0]
+                //         this.lastname = value.split('-')[1]
+                //     }
+                // }
+                
+                //计算属性 只有get的时候可以简写
+                //fullname:function(){}
+                fullname(){
+                    return this.firstname+'-'+this.lastname
+                }
+            }
+        })
+    </script>
+</html>
