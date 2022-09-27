@@ -1,0 +1,43 @@
+<!--
+    1 组件的名字如果是一个单词 那么 School school 多可以
+                     多个单词 那么 MySchool my-school 都可以(MySchool 在脚手架中才能用好)
+    2 组件名不要与html标签名字重复 BR br Br 都不要用
+    3 <school></school>  <school/> 都可以 后者在脚手架上才能用好
+
+-->
+<html lang="en">
+<head>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!--会找名字是myschool的组件-->
+        <MySchool></MySchool><hr/>
+        <my-school></my-school>
+    </div>
+</body>
+<script>
+   school = Vue.extend({
+    data(){
+        return {
+            name:'just',
+            address:'zhenjiang'
+        }
+    },
+    template:`<div>
+                  <span>学校名称:{{name}}</span></br>
+                  <span>学校地址{{address}}</span>
+                  </div>`
+    })
+
+    vm = new Vue({
+        el:'#root',
+        components:{
+            MySchool:school,
+            'my-school':school
+        }
+        
+    })
+
+</script>
+</html>

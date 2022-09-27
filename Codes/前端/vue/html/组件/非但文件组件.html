@@ -1,0 +1,51 @@
+<!-- 
+   三部曲:
+   1 定义一个组件
+   2 让组件被vm管理起来
+   3 让组件在页面上显示出来
+
+-->
+<html>
+<head>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!--将组件的内容在页面中显示出来-->
+        <school></school>
+        <br/>
+        <school></school>
+    </div>
+</body>
+<script>
+   // 定义一个组件的方式 这里的配置对象不能写el,data必须用函数返回 管理的标签用template指定 
+   //template的值是一个字符串(在vue2中只有一个跟元素)
+   const school = Vue.extend({
+        template:`<div>
+                  <span>学校名称:{{name}}</span></br>
+                  <span>学校地址{{location}}</span>
+                  </div>`,
+        data(){
+            return {
+                name:'just',
+                location:'zhenjiang'
+            }
+        },
+        name:'asc' //这个名字只是给vue在浏览器中的插件使用,并不能指定组件的名称。
+   })
+   //  Vue.component('school',school) //配置全局组件的方式
+   const vm = new Vue({
+    el:'#root',
+    data:{},
+    //将组件交给Vm管理
+    components:{
+         school:school //键值对的形式 第一个school 为组件的名字 第二个为组件
+         //上面可以简写为
+         //school     
+    }
+   })
+
+
+
+</script>
+</html>

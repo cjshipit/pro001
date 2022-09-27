@@ -1,0 +1,46 @@
+<html>
+    <head>
+     <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <school></school>
+        </div>
+    </body>
+    <script>
+        student = Vue.extend({
+            data() {
+                return {
+                    name:'zhangsan',
+                    age:15
+                }
+            },
+            template:`<div>
+                     <span>学生名称:{{name}}</span></br>
+                     <span>学生年龄{{age}}</span>
+                     </div>`
+        })
+        school = Vue.extend({
+            template:`<div>
+                     <span>学校名称:{{name}}</span></br>
+                     <span>学校地址{{address}}</span><hr/>
+                     <student></student>
+                     </div>
+                    `,
+            data() {
+                return {
+                    name:'just',
+                    address:'zhenjiang'
+                }
+            },
+            //将一个组件加入另一个组件之中...组件之间成为父子关系
+            components:{student:student},
+
+        })
+        vm = new Vue({
+            el:'#root',
+            components:{school:school}
+        })
+    
+    </script>
+</html>

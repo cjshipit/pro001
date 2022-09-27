@@ -1,0 +1,63 @@
+<!--
+   1 执行 Vue.extend({}) 方法 返回一个构造方法
+     每次调用返回的方法不同 方法的名字为VueComponent
+   2 当要解析<school></school> 标签的时候执行这个构造方法 且通过new的方式执行
+      new VueComponent(options)
+   3 组件中的ata methods中方法调用 this 指向的是VueComponent对象
+     Vue中data methods 中方法执行时候 this指向的是Vue对象
+   4 组件对象简称为VC vue对象简称为vm
+   5 vue对象和VueCompoents 对象的原型对象图要看懂(笔记里面)
+-->
+
+
+<html>
+    <head>
+     <script src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <school></school>
+        </div>
+    </body>
+    <script>
+        student = Vue.extend({
+            data() {
+                return {
+                    name:'zhangsan',
+                    age:15
+                }
+            },
+            template:`<div>
+                     <span>学生名称:{{name}}</span></br>
+                     <span>学生年龄{{age}}</span>
+                     </div>`
+        })
+        school = Vue.extend({
+            template:`<div>
+                     <span>学校名称:{{name}}</span></br>
+                     <span>学校地址{{address}}</span><hr/>
+                     <student></student>
+                     </div>
+                    `,
+            data() {
+                return {
+                    name:'just',
+                    address:'zhenjiang'
+                }
+            },
+            //将一个组件加入另一个组件之中...组件之间成为父子关系
+            components:{student:student},
+
+        })
+        /*ƒ VueComponent(options) {
+              this._init(options);
+          }*/
+        console.log(student)
+        console.log(student === school)
+        vm = new Vue({
+            el:'#root',
+            components:{school:school}
+        })
+    
+    </script>
+</html>

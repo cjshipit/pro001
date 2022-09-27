@@ -1,0 +1,70 @@
+<html>
+<head>
+    <script src="../../js/vue.js" ></script>
+</head>
+<body>
+    <div id = 'root'>
+        <span>n的值是:   {{n}}</span>
+         <button @click="add">n++</button>
+    </div>
+</body>
+<script>
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            n:0
+        },
+        methods: {
+            add(){
+                n++
+            }
+        },
+
+        //最初将虚拟dom展示成为真是dom之前 在这步骤之后 vue会绑定(刷新页面)
+        //这步骤之前不要对dom进行操作
+        beforeMount() {
+           console.log('beforeMount 开始执行')    
+
+        },
+        //数据和模板绑定完成之后,虚拟dom已经转化为真实的dom了
+        mounted() {
+            console.log('Mounted 开始执行')    
+        },
+        /*
+        在启动数据代理和数据监视之前 
+        这个时候data中的数据和method中的方法还没有被vue管理起来
+        此时的n未定义
+        */ 
+        beforeCreate() {
+            console.log('beforeCreate 开始执行')
+            console.log(this.n)
+        },
+        //数据代理完成之后 可以看到数据和方法被vue管理起来
+        created() {
+            console.log('created 开始执行')
+            console.log(this.n)
+        },
+        //重新解析模板之前执行 这时候还没有进行新旧dom的比对
+        beforeUpdate() {
+            console.log('beforeCreate 开始执行')
+        },
+        //重新解析模板之后执行,dom已经更新
+        updated() {
+            console.log('updated 开始执行')
+        },
+        //vue被销毁之前执行 这时数据绑定还在 但是更改数据时候不再刷新页面
+        beforeDestroy() {
+            console.log('beforeDestroy 开始执行')
+        },
+        //销毁后 数据绑定已经解除
+        destroyed() {
+            console.log('destroyed 开始执行')
+        },
+    })
+
+
+</script>
+
+
+
+</html>
